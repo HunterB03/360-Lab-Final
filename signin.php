@@ -54,24 +54,24 @@
 ?>
 
 </div>
-
-
-<div class="col-3">
+	<div class="col-3">
 		<br>
-	<h3> Generic E-Commerce Website </h3>
-	<br>
-	<table width="60%" align="center">
-		<tr align="center">
-			<td><h4><a href="signin.php"> Sign In </a></h4></td>
-			<td><h4><a href="signup.php"> Sign Up </a></h4></td>
-		</tr>
-	</table>
-	<h3><a href="index.html"> Home </a></h3>
-	<h3><a href="product-listing.html"> Product Listings </a></h3>
-	<h3><a href="user-profile.html"> Profile </a></h3>
-	<h3><a href="cart.html"> Cart </a></h3>
-	
-</div>
+		<h3> Generic E-Commerce Website </h3>
+		<br>
+		<table width="60%" align="center">
+			<tr align="center">
+				<td><h4><a href="signin.php"> Sign In </a></h4></td>
+				<td><h4><a href="signup.php"> Sign Up </a></h4></td>
+			</tr>
+		</table>
+		<h3><a href="index.html"> Home </a></h3>
+		<h3><a href="product-listing.html"> Product Listings </a></h3>
+		<h3><a href="user-profile.html"> Profile </a></h3>
+		<h3><a href="cart.html"> Cart </a></h3>
+		<h3><a href="dashboard.php"> Dashboard </a></h3>
+		<br>
+		<h4 style="text-align: center;"><a href="logout.php"> Log Out </a></h4>
+	</div>
 
 </body>
 </html>
