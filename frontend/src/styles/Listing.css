@@ -1,0 +1,34 @@
+.listing-container {
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 10px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for card-like effect */
+    text-align: center;
+}
+
+.listing-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.listing-content {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.listing-date {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.listing-image {
+    width: 100%;
+    height: auto;
+    max-width: 250px; /* Ensures the image isn't too big */
+    margin-bottom: 10px;
+}
