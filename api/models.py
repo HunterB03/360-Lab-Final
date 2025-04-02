@@ -6,7 +6,7 @@ class Listing(models.Model):
     title = models.CharField(max_length=100)
     content = models.CharField(max_length=500)
     pub_date = models.DateTimeField(auto_now_add=True)
-    img = models.ImageField(default='default.jpg', blank=True)
+    img = models.ImageField(upload_to='listing_images/',default='default.jpg', blank=True)
     owns = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
