@@ -12,18 +12,18 @@ class CreateUserView(generics.CreateAPIView):
     permission_classes = [AllowAny]
 
 class ListingCreate(generics.ListCreateAPIView):
+    queryset = Listing.objects.all()
     serializer_class = ListingSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
-    def get_queryset(self):
-        user = self.request.user
-        return Listing.objects.filter(owns=user)
-    
-    def perform_create(self, serializer):
-        if serializer.is_valid():
-            serializer.save(owns=self.request.user)
-        else:
-            print(serializer.errors)
+	#def get_queryset(self):
+	#    return Listing.objects.filter(owns=user)
+	# 
+	# def perform_create(self, serializer):
+	#     if serializer.is_valid():
+	#         serializer.save(owns=self.request.user)
+   	#     else:
+   	#         print(serializer.errors)
 
 class ListingDelete(generics.CreateAPIView):
     serializer_class = ListingSerializer
