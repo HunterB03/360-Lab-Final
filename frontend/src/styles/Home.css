@@ -10,13 +10,13 @@ body{
 }
 
 .grid-container > .listing-container {
-    /* Grid item styles, ensuring they behave as cards */
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .header {
+    
     background-color:blue
 }
 

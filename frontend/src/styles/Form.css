@@ -23,14 +23,12 @@
     width: 95%;
     padding: 10px;
     margin: 20px 0;
-    background-color: #007bff;
+    background-color: blue;
     color: white;
     border: none;
     border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
   }
   
   .form-button:hover {
-    background-color: #0056b3;
+    background-color: blue;
   }

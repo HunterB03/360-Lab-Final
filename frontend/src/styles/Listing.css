@@ -4,7 +4,7 @@
     border-radius: 5px;
     margin: 10px;
     background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for card-like effect */
+    box-shadow: 0 4px 8px black(0, 0, 0, 0.1); /* Optional shadow for card-like effect */
     text-align: center;
 }
 
@@ -16,12 +16,12 @@
 
 .listing-content {
     font-size: 1rem;
-    color: #555;
+    color: gray;
     margin-bottom: 10px;
 }
 
 .listing-date {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: #888;
     margin-bottom: 10px;
 }
@@ -29,6 +29,15 @@
 .listing-image {
     width: 100%;
     height: auto;
-    max-width: 250px; /* Ensures the image isn't too big */
+    max-width: 250px;
     margin-bottom: 10px;
+}
+
+button{
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 5px;  
 }
