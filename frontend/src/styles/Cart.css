@@ -61,3 +61,7 @@
 .cart-item-actions button:hover {
     background-color: blue;
 }
+
+.cart-summary{
+    background-color: white;
+}

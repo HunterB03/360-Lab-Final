@@ -1,0 +1,13 @@
+/* Checkout.css */
+.checkout-container {
+    padding: 20px;
+}
+
+.cart-summary {
+    margin-bottom: 20px;
+}
+
+.cart-item-summary {
+    display: flex;
+    justify-content: space-between;
+}

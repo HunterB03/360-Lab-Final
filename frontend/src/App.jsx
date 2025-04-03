@@ -4,9 +4,11 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Home from "./pages/Home"
 import NotFound from "./pages/NotFound"
-
 import CartPage from './pages/CartPage'
 import ProtectedRoute from "./components/ProtectedRoute"
+
+import CheckoutPage from './pages/CheckoutPage'
+
 
 function Logout(){
   localStorage.clear()
@@ -34,6 +36,8 @@ function App() {
         <Route path="/logout" element={<Logout />} />
         <Route path="/register" element={<RegisterAndLogout />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/checkout" element={<CheckoutPage /> }/>
+        
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </BrowserRouter>
