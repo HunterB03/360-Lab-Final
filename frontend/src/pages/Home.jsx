@@ -25,21 +25,17 @@ function Home() {
     }
 
     const addToCart = (listing) => {
-        // Check if the item is already in the cart
         const existingItemIndex = cart.findIndex(item => item.id === listing.id);
     
         let updatedCart = [...cart];
     
         if (existingItemIndex !== -1) {
-            // If the item is already in the cart, update its quantity
             updatedCart[existingItemIndex].quantity += 1;
         } else {
-            // If the item is not in the cart, add it with quantity 1
             updatedCart.push({ ...listing, quantity: 1 });
         }
-    
-        setCart(updatedCart); // Update the cart state
-        localStorage.setItem('cart', JSON.stringify(updatedCart)); // Save updated cart to localStorage
+        setCart(updatedCart);
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
     };
     
 
