@@ -12,6 +12,7 @@ function Home() {
     const [content, setContent] = useState("")
     const [title, setTitle] = useState("")
     const[img, setImage] = useState("")
+	const[price, setPrice] = useState("")
 
     const [cart, setCart] = useState([]);
 
