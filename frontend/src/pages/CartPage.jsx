@@ -71,8 +71,8 @@ function CartPage() {
                                 <p className="cart-item-content">{item.content}</p>
                                 <p className="cart-item-quantity">Quantity: {item.quantity}</p>
                                 <div className="cart-item-actions">
-                                    <button onClick={() => increaseQuantity(item.id)}>Increase</button>
-                                    <button onClick={() => decreaseQuantity(item.id)}>Decrease</button>
+                                    <button onClick={() => increaseQuantity(item.id)}>+</button>
+                                    <button onClick={() => decreaseQuantity(item.id)}>-</button>
                                     <button onClick={() => removeFromCart(item.id)}>Remove</button>
                                 </div>
                             </div>

@@ -15,6 +15,7 @@ function Home() {
 	const[price, setPrice] = useState("")
 
     const [cart, setCart] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("")
 
 
     useEffect(() => {
@@ -39,6 +40,9 @@ function Home() {
         localStorage.setItem('cart', JSON.stringify(updatedCart));
     };
     
+    const filteredListings = listings.filter(listing =>
+        listing.title.toLowerCase().startsWith(searchTerm.toLowerCase())
+    )
 
     return (
         <div>
@@ -55,10 +59,22 @@ function Home() {
 
             </div>
             <h2>Listings</h2>
+
+            <input
+                type="text"
+                placeholder="Search Listings"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="search-bar"
+            />
             
             <div className="grid-container">
-                {listings.map((listing) => (
-                    <Listing listing={listing} key={listing.id} addToCart={addToCart}/>
+            {filteredListings.map((listing) => (
+                    <Listing
+                        listing={listing}
+                        key={listing.id}
+                        addToCart={addToCart}
+                    />
                 ))}
             </div>
             
