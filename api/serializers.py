@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Listing
+from .models import Listing, Checkout, Cart
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,3 +17,11 @@ class ListingSerializer(serializers.ModelSerializer):
         model = Listing
         fields = ["id", "title", "content", "pub_date", "img", "owns", "price"]
         extra_kwargs = {"owns": {"read_only":True}}
+        
+class CheckoutSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Checkout
+
+class CartSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cart

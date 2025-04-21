@@ -6,4 +6,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("listings/", views.ListingCreate.as_view(), name="listing_list"),
     path("listings/delete/<int:pk>", views.ListingDelete.as_view(), name="delete_listing"),
+    path("checkout/", views.CheckoutCreate.as_view(), name="checkout"),
+    path("cart/", views.CartView.as_view(), name="cart"),
+    path("cart/add", views.CartCreate.as_view(), name="cartadd"),
+    path("cart/delete", views.CartDelete, name="cartdelete"),
+    path("cart/update", views.CartUpdate, name="cartupdate")
 ] +static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -12,3 +12,30 @@ class Listing(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Checkout(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    users_name = models.CharField(max_length=100)
+    email = models.EmailField(max_length=100)
+    shipping_address = models.TextField(max_length=300)
+    card_number = models.CharField(max_length=50)
+    amount_paid = models.DecimalField(max_digits=20, decimal_places=2)
+    date_ordered = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.id
+
+class CheckoutItems(models.Model):
+    checkout = models.ForeignKey(Checkout, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    item = models.ForeignKey(Listing, on_delete = models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+    price = models.DecimalField(max_digits=20, decimal_places=2)
+
+    def __str__(self):
+        return self.checkout.id
+
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+

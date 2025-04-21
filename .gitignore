@@ -1,0 +1,12 @@
+#backend ignores
+api/__pycache__/
+*.pyc
+
+labfinal/__pycache__/
+*.pyc
+
+media/
+*.jpg
+*.jpeg
+*.png
+*.PNG
