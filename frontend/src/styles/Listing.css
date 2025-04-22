@@ -3,34 +3,36 @@
     border: 1px solid black;
     border-radius: 5px;
     margin: 10px;
-    background-color: white;
-    box-shadow: 0 4px 8px black(0, 0, 0, 0.1); /* Optional shadow for card-like effect */
+    background-color: whitesmoke;
     text-align: center;
 }
 
 .listing-title {
     font-size: 1.2rem;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .listing-content {
     font-size: 1rem;
     color: gray;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .listing-date {
     font-size: 1rem;
-    color: #888;
-    margin-bottom: 10px;
+    color: gray;
+    margin-bottom: 5px;
 }
 
 .listing-image {
     width: 100%;
-    height: auto;
-    max-width: 250px;
-    margin-bottom: 10px;
+    height: 300px; 
+    object-fit: contain; 
+    background-color: white;
+    border: 1px solid black;
+    box-sizing: border-box;
+    margin-bottom: 10pt;
 }
 
 button{
