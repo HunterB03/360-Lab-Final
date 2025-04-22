@@ -24,7 +24,6 @@ class ListingDelete(generics.CreateAPIView):
 		user = self.request.user
 		return Listing.objects.filter(owns=user)
 	
-	
 class CheckoutCreate(generics.ListCreateAPIView):
 	serializer_class = CheckoutSerializer
 	permission_classes = [IsAuthenticated]
@@ -32,13 +31,19 @@ class CheckoutCreate(generics.ListCreateAPIView):
 class CartView(generics.ListAPIView):
 	serializer_class = CartSerializer
 	permission_classes = [IsAuthenticated]
+	
 
-class CartCreate(generics.ListCreateAPIView):
-	serializer_class = CartSerializer
+def CartCreate(request):
 	permission_classes = [IsAuthenticated]
+	if request.user.is_authenticated:
+		'do some things'
 
-class CartDelete():
+def CartAdd(request, lid):
+	queryset = Cart.objects.all()
+	return "hello, world"
+
+def CartDelete(request, lid):
 	queryset = Cart.objects.all()
 
-class CartUpdate():
+def CartUpdate(request, amt):
 	queryset = Cart.objects.all()

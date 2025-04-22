@@ -3,39 +3,44 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Listing(models.Model):
-    title = models.CharField(max_length=100)
-    content = models.CharField(max_length=500)
-    pub_date = models.DateTimeField(auto_now_add=True)
-    img = models.ImageField(upload_to='listing_images/',default='default.jpg', blank=True)
-    owns = models.ForeignKey(User, on_delete=models.CASCADE)
-    price = models.BigIntegerField()
+	title = models.CharField(max_length=100)
+	content = models.CharField(max_length=500)
+	pub_date = models.DateTimeField(auto_now_add=True)
+	img = models.ImageField(upload_to='listing_images/',default='default.jpg', blank=True)
+	owns = models.ForeignKey(User, on_delete=models.CASCADE)
+	price = models.BigIntegerField()
 
-    def __str__(self):
-        return self.title
-    
+	def __str__(self):
+		return self.title
+	
 class Checkout(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    users_name = models.CharField(max_length=100)
-    email = models.EmailField(max_length=100)
-    shipping_address = models.TextField(max_length=300)
-    card_number = models.CharField(max_length=50)
-    amount_paid = models.DecimalField(max_digits=20, decimal_places=2)
-    date_ordered = models.DateTimeField(auto_now_add=True)
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	users_name = models.CharField(max_length=100)
+	email = models.EmailField(max_length=100)
+	shipping_address = models.TextField(max_length=300)
+	card_number = models.CharField(max_length=50)
+	amount_paid = models.DecimalField(max_digits=20, decimal_places=2)
+	date_ordered = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.id
+	def __str__(self):
+		return self.id
 
 class CheckoutItems(models.Model):
-    checkout = models.ForeignKey(Checkout, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete = models.CASCADE)
-    item = models.ForeignKey(Listing, on_delete = models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
-    price = models.DecimalField(max_digits=20, decimal_places=2)
+	checkout = models.ForeignKey(Checkout, on_delete=models.CASCADE)
+	user = models.ForeignKey(User, on_delete = models.CASCADE)
+	item = models.ForeignKey(Listing, on_delete = models.CASCADE)
+	quantity = models.PositiveIntegerField(default=1)
+	price = models.DecimalField(max_digits=20, decimal_places=2)
 
-    def __str__(self):
-        return self.checkout.id
+	def __str__(self):
+		return self.checkout.id
 
 class Cart(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	total_price = models.DecimalField(default=0.00, max_digits=20, decimal_places=2)
 
-
+class CartItems(models.Model):
+	cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+	item = models.ForeignKey(Listing, on_delete=models.CASCADE)
+	quantity = models.PositiveIntegerField(default=1)
+	price = models.DecimalField(max_digits=20, decimal_places=2)
