@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/Cart.css";
+import { Link } from 'react-router-dom';
 
 function CartPage() {
     const [cart, setCart] = useState([]);
@@ -49,10 +50,6 @@ function CartPage() {
                 <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/cart">Go To Cart</a></li>
-                <li><a href="/checkout">Checkout</a></li>
-    
-                <li><a href="/login">Login</a></li>
-                <li><a href="/register">Register</a></li>
                 <li><a href="/logout">Log Out</a></li>
                 </ul>
                 </div>
@@ -84,6 +81,7 @@ function CartPage() {
                 <div className="cart-summary">
                     <p><strong>Total Quantity:</strong> {totalQuantity}</p>
                     <p><strong>Total Price:</strong> ${totalPrice}</p>
+                    <Link to="/checkout"><button>Checkout</button></Link>
                 </div>
             )}
         </div>
