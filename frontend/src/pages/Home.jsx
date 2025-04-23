@@ -41,7 +41,9 @@ function Home() {
     };
     
     const filteredListings = listings.filter(listing =>
-        listing.title.toLowerCase().startsWith(searchTerm.toLowerCase())
+        listing.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        listing.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        listing.price.toString().includes(searchTerm)
     )
 
     return (
