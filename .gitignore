@@ -12,3 +12,4 @@ media/
 *.PNG
 
 __pycache__/*
+*.pyc

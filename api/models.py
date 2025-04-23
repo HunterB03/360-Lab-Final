@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+
 
 # Create your models here.
 class Listing(models.Model):
@@ -38,6 +40,16 @@ class CheckoutItems(models.Model):
 class Cart(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	total_price = models.DecimalField(default=0.00, max_digits=20, decimal_places=2)
+
+	def __str__(self):
+		return self.user.username
+	
+def create_cart(sender, instance, created, **kwargs):
+	if created:
+		user_profile = Cart(user=instance)
+		user_profile.save()
+#adds a profile for each new user
+post_save.connect(create_cart, sender=User)
 
 class CartItems(models.Model):
 	cart = models.ForeignKey(Cart, on_delete=models.CASCADE)

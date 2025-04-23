@@ -22,6 +22,7 @@ class CheckoutSerializer(serializers.ModelSerializer):
     class Meta:
         model = Checkout
 
-class CartSerializer(serializers.ModelSerializer):
+class CartCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
+        fields = ["user"]

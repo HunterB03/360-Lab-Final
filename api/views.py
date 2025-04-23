@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from rest_framework import generics
-from .serializers import UserSerializer, ListingSerializer, CheckoutSerializer, CartSerializer
+from .serializers import UserSerializer, ListingSerializer, CheckoutSerializer, CartCreateSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Listing, Cart
+from django.db.models.signals import post_save
 
 # Create your views here.
 class CreateUserView(generics.CreateAPIView):
@@ -32,14 +33,9 @@ class CheckoutCreate(generics.ListCreateAPIView):
 	permission_classes = [IsAuthenticated]
 
 class CartView(generics.ListAPIView):
-	serializer_class = CartSerializer
+	serializer_class = CartCreateSerializer
 	permission_classes = [IsAuthenticated]
-	
 
-def CartCreate(request):
-	permission_classes = [IsAuthenticated]
-	if request.user.is_authenticated:
-		'do some things'
 
 def CartAdd(request, lid):
 	queryset = Cart.objects.all()

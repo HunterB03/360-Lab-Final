@@ -8,7 +8,6 @@ urlpatterns = [
     path("listings/delete/<int:pk>", views.ListingDelete.as_view(), name="delete_listing"),
     path("checkout/", views.CheckoutCreate.as_view(), name="checkout"),
     path("cart/", views.CartView.as_view(), name="cart"),
-	path("cart/create", views.CartCreate, name="cartcreate"),
     path("<int:lid>/cart/add", views.CartAdd, name="cartadd"),
     path("<int:lid>/cart/delete", views.CartDelete, name="cartdelete"),
     path("<int:amt>/cart/update", views.CartUpdate, name="cartupdate")
