@@ -7,8 +7,8 @@ import NotFound from "./pages/NotFound"
 import CartPage from './pages/CartPage'
 import ProtectedRoute from "./components/ProtectedRoute"
 import CreateListingPage from './pages/CreateListingPage';
-
 import CheckoutPage from './pages/CheckoutPage'
+import DjangoCart from "./pages/DjangoCart"
 
 
 function Logout(){
@@ -39,7 +39,7 @@ function App() {
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<CheckoutPage /> }/>
         <Route path="/create-listing" element={<CreateListingPage />} />
-        
+        <Route path="/djangocart" element={<DjangoCart />} />
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </BrowserRouter>
