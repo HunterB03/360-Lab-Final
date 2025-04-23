@@ -16,6 +16,9 @@ class ListingCreate(generics.ListCreateAPIView):
 	serializer_class = ListingSerializer
 	permission_classes = [AllowAny]
 
+	def perform_create(self, serializer):
+		serializer.save(owns=self.request.user)
+
 class ListingDelete(generics.CreateAPIView):
 	serializer_class = ListingSerializer
 	permission_classes = [IsAuthenticated]

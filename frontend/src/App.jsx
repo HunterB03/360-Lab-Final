@@ -6,6 +6,7 @@ import Home from "./pages/Home"
 import NotFound from "./pages/NotFound"
 import CartPage from './pages/CartPage'
 import ProtectedRoute from "./components/ProtectedRoute"
+import CreateListingPage from './pages/CreateListingPage';
 
 import CheckoutPage from './pages/CheckoutPage'
 
@@ -37,6 +38,7 @@ function App() {
         <Route path="/register" element={<RegisterAndLogout />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<CheckoutPage /> }/>
+        <Route path="/create-listing" element={<CreateListingPage />} />
         
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
