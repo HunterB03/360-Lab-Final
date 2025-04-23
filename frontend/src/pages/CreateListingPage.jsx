@@ -1,16 +1,32 @@
-// CreateListingPage.js (Page)
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import api from '../api';
 
 const CreateListingPage = () => {
+  const [userGroups, setUserGroups] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [price, setPrice] = useState('');
   const [img, setImg] = useState(null);
 
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const res = await api.get('api/user-info/');
+        setUserGroups(res.data.groups);
+      } catch (err) {
+        console.error('Failed to fetch user info:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const formData = new FormData();
     formData.append('title', title);
     formData.append('content', content);
@@ -18,10 +34,8 @@ const CreateListingPage = () => {
     if (img) formData.append('img', img);
 
     try {
-      const res = await api.post('api/listings/', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+      await api.post('api/listings/', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
       alert('Listing created!');
     } catch (err) {
@@ -29,6 +43,12 @@ const CreateListingPage = () => {
       alert('Failed to create listing.');
     }
   };
+
+  if (loading) return <p>Loading...</p>;
+
+  if (!userGroups.includes('Seller')) {
+    return <p>You must be a Seller to create listings.</p>;
+  }
 
   return (
     <div>

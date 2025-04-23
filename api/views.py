@@ -6,6 +6,23 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Listing, Cart, CartItems
 from django.db.models.signals import post_save
 
+from django.contrib.auth.models import Group
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def current_user_info(request):
+    user = request.user
+    groups = list(user.groups.values_list('name', flat=True))
+    return Response({
+		'id': user.id,
+        'username': user.username,
+        'groups': groups,
+    })
+
+
 # Create your views here.
 class CreateUserView(generics.CreateAPIView):
 	queryset = User.objects.all()

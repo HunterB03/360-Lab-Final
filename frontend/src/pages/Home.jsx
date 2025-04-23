@@ -16,15 +16,29 @@ function Home() {
 
     const [cart, setCart] = useState([]);
     const [searchTerm, setSearchTerm] = useState("")
+    const [userGroups, setUserGroups] = useState([]);
+    const [loadingUserInfo, setLoadingUserInfo] = useState(true);
 
 
     useEffect(() => {
         getListings()
+        getUserInfo()
     }, [])
 
     const getListings = () => {
         api.get("/api/listings/").then((res) => res.data).then((data) => {setListings(data); console.log(data)}).catch((err) => alert(err))
     }
+
+    const getUserInfo = async () => {
+        try {
+            const res = await api.get('/api/user-info/');
+            setUserGroups(res.data.groups);
+        } catch (err) {
+            console.error("Failed to load user info:", err);
+        } finally {
+            setLoadingUserInfo(false);
+        }
+    };
 
     const addToCart = (listing) => {
         const existingItemIndex = cart.findIndex(item => item.id === listing.id);
@@ -53,7 +67,7 @@ function Home() {
             <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/cart">Go To Cart</a></li>
-
+            {userGroups.includes('Seller') && <li><a href="/create-listing">Create Listing</a></li>}
             <li><a href="/logout">Log Out</a></li>
             </ul>
 
