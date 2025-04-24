@@ -38,3 +38,7 @@
   .checkout-item strong {
     font-weight: bold;
   }
+
+button {
+  background-color:blue;
+}

@@ -23,6 +23,19 @@ const CheckoutDetails = () => {
 
   return (
     <div>
+
+<div className="header">
+                
+                <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/djangocart">Go To Cart</a></li>
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/logout">Log Out</a></li>
+                </ul>
+    
+                </div>
+
+
       <h1>Order #{checkout.id}</h1>
       <p><strong>Shipping Address:</strong> {checkout.shipping_address}</p>
       <p><strong>Amount Paid:</strong> ${checkout.amount_paid}</p>
