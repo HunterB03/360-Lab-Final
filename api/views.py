@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from rest_framework import generics
-from .serializers import UserSerializer, ListingSerializer, CheckoutSerializer, CartCreateSerializer, CartItemSerializer, CartIncDecSerializer, CheckoutViewSerializer
+from .serializers import UserSerializer, ListingSerializer, CheckoutSerializer, CartCreateSerializer, CartItemSerializer, CartIncDecSerializer, CheckoutViewSerializer, CheckoutItemSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Listing, Cart, CartItems, Checkout, CheckoutItems
 from django.db.models.signals import post_save
@@ -66,6 +66,16 @@ class CheckoutCreate(generics.CreateAPIView):
 	
 	def perform_create(self, serializer):
 		serializer.save(user=self.request.user)
+
+class CheckoutItemCreate(generics.CreateAPIView):
+	queryset = CheckoutItems.objects.all()
+	serializer_class = CheckoutItemSerializer
+	permission_classes = [IsAuthenticated]
+
+	def perform_create(self, serializer):
+		user = self.request.user
+		check = Checkout.objects.filter(user=user).order_by('-date_ordered').first()
+		serializer.save(user=user, checkout=check)
 
 class CheckoutView(generics.ListAPIView):
 	serializer_class = CheckoutViewSerializer

@@ -45,10 +45,25 @@ function CheckoutPage() {
         }
         }
         posty()
-        api.get('/api/checkout/processing').then((res) => res.data).then((data) => {setLatestCh(data); console.log(data)}).catch((err) => alert(err))
-        const cheid = latestch[0].id
-        cartitems.map((item) => {
-            
+ /*       function getch() {
+            api.get('/api/checkout/processing').then((res) => res.data).then((data) => {
+                setLatestCh(data);
+                console.log(data)}).catch((err) => alert(err))
+        }
+*/
+        //latestch[0].id has id of current checkout process
+        
+        cartitems.map((i) => {
+            console.log(i)
+            try {
+            api.post(`/api/checkout/item/`, {
+                "item": i.item,
+                "quantity": i.quantity,
+                "price": i.price
+            })
+        } catch (error) {
+            console.error(error.response.data)
+        }
         })
     }
 

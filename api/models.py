@@ -16,7 +16,7 @@ class Listing(models.Model):
 		return self.title
 	
 class Checkout(models.Model):
-	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
 	shipping_address = models.TextField(max_length=300)
 	card_number = models.CharField(max_length=50)
 	amount_paid = models.DecimalField(max_digits=20, decimal_places=2)
@@ -26,9 +26,9 @@ class Checkout(models.Model):
 		return str(self.id)
 
 class CheckoutItems(models.Model):
-	checkout = models.ForeignKey(Checkout, on_delete=models.CASCADE)
-	user = models.ForeignKey(User, on_delete = models.CASCADE)
-	item = models.ForeignKey(Listing, on_delete = models.CASCADE)
+	checkout = models.ForeignKey(Checkout, blank=True, null=True, on_delete=models.SET_NULL)
+	user = models.ForeignKey(User, blank=True, null=True, on_delete = models.SET_NULL)
+	item = models.ForeignKey(Listing, blank=True, null=True, on_delete=models.SET_NULL)
 	quantity = models.PositiveIntegerField(default=1)
 	price = models.DecimalField(max_digits=20, decimal_places=2)
 
