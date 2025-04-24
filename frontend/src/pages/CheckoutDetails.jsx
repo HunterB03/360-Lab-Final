@@ -5,6 +5,16 @@ import api from '../api';
 const CheckoutDetails = () => {
   const { id } = useParams();
   const [checkout, setCheckout] = useState(null);
+  const [itemdetails, setItemDetails] = useState([]);
+
+	const getCheckoutItemDetails = () => {
+    try {
+		api.get(`/api/checkout/items/specific/${id}`).then((res) => res.data).then((data) => {setItemDetails(data); console.log(data)}).catch((err) => alert(err))		
+    } catch (error) {
+      console.error(error.response.data)
+    }
+  }
+  
 
   useEffect(() => {
     const fetchCheckout = async () => {
@@ -17,6 +27,7 @@ const CheckoutDetails = () => {
     };
 
     fetchCheckout();
+    getCheckoutItemDetails();
   }, [id]);
 
   if (!checkout) return <p>Loading...</p>;
@@ -41,12 +52,21 @@ const CheckoutDetails = () => {
       <p><strong>Amount Paid:</strong> ${checkout.amount_paid}</p>
       <h2>Items</h2>
       <ul>
-        {checkout.items.map((item, index) => (
-          <li key={index}>
-            <p><strong>Quantity:</strong> {item.quantity}</p>
-            <p><strong>Price:</strong> ${item.price}</p>
-          </li>
-        ))}
+        {checkout.items.map((i) => {
+          
+          const quan = itemdetails.find(j => j.id === i.item);
+        
+          return (
+          
+          <div className="cart-item-container" key={i.id}>
+            <p>{quan.title}</p>
+            <p><strong>Quantity:</strong> {i.quantity}</p>
+            <p><strong>Price:</strong> ${i.price}</p>
+          </div>
+          
+          
+        )}
+      )}
       </ul>
     </div>
   );

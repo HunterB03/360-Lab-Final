@@ -16,6 +16,7 @@ urlpatterns = [
 	path("listings/specific", views.CartItemDetailsView.as_view(), name="specificlisting"),
     path("checkout/processing", views.CheckoutLastView.as_view(), name="processcheckout"),
     path("checkout/specific/<int:pk>", views.CheckoutView.as_view(), name="specificcheckout"),
+    path("checkout/items/specific/<int:iden>", views.CheckoutItemDetailsView.as_view(), name="checkoutitemdetails"),
     path('checkout/all', views.CheckoutsListView.as_view(), name='allcheckouts'),    
     path("checkout/item/", views.CheckoutItemCreate.as_view(), name="checkoutitemcreate"),
     path('checkout/details/<int:pk>', views.CheckoutDetailView.as_view(), name='checkout-detail'),

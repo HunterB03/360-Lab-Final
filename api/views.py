@@ -98,6 +98,18 @@ class CheckoutLastView(generics.ListAPIView):
 	def get_queryset(self):
 		user = self.request.user
 		return Checkout.objects.filter(user=user).order_by('-date_ordered')[:1]
+	
+class CheckoutItemDetailsView(generics.ListAPIView):
+	serializer_class = ListingSerializer
+	permission_classes = [IsAuthenticated]
+
+	def get_queryset(self):
+		ident = self.kwargs.get('iden')
+		curr = self.request.user
+		checkitems = CheckoutItems.objects.filter(checkout=ident)
+		curritemid = checkitems.values_list('item', flat=True)
+		return Listing.objects.filter(id__in=curritemid)
+
 
 class CartView(generics.ListAPIView):
 	serializer_class = CartCreateSerializer
