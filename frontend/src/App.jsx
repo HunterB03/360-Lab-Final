@@ -10,6 +10,8 @@ import CreateListingPage from './pages/CreateListingPage';
 import CheckoutPage from './pages/CheckoutPage'
 import DjangoCart from "./pages/DjangoCart"
 import AdminDashboard from './pages/AdminPage'
+import Profile from './pages/Profile'
+
 
 
 function Logout(){
@@ -42,6 +44,7 @@ function App() {
         <Route path="/create-listing" element={<CreateListingPage />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/djangocart" element={<DjangoCart />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </BrowserRouter>

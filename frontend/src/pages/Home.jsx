@@ -113,6 +113,7 @@ function Home() {
             <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/djangocart">Go To Cart</a></li>
+            <li><a href="/profile">Profile</a></li>
             {userInfo?.is_superuser && <li><a href="/admin-dashboard">Admin Dashboard</a></li>}
             {userGroups.includes('Seller') && <li><a href="/create-listing">Create Listing</a></li>}
             <li><a href="/logout">Log Out</a></li>

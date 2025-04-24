@@ -49,6 +49,7 @@ function CartPage() {
             <div className="header">
                 <ul>
                 <li><a href="/">Home</a></li>
+                <li><a href="/profile">Profile</a></li>
                 <li><a href="/cart">Go To Cart</a></li>
                 <li><a href="/logout">Log Out</a></li>
                 </ul>
