@@ -59,6 +59,7 @@ const Profile = () => {
               checkouts.map((checkout) => (
                 <li key={checkout.id} className="checkout-item">
                   <p><strong>Order ID:</strong> {checkout.id}</p>
+                  <p><strong>Order Details:</strong> <a href={`/checkout/${checkout.id}`}>{checkout.id}</a></p>
                   <p><strong>Shipping Address:</strong> {checkout.shipping_address}</p>
                   <p><strong>Amount Paid:</strong> ${checkout.amount_paid}</p>
                 </li>

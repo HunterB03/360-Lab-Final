@@ -5,6 +5,7 @@ from .serializers import UserSerializer, ListingSerializer, CheckoutSerializer, 
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Listing, Cart, CartItems, Checkout, CheckoutItems
 from django.db.models.signals import post_save
+from .serializers import CheckoutWithItemsSerializer
 
 from django.contrib.auth.models import Group
 from rest_framework.decorators import api_view, permission_classes
@@ -35,7 +36,12 @@ class CheckoutsListView(generics.ListAPIView):
         user = self.request.user
         return Checkout.objects.filter(user=user)
 
+class CheckoutDetailView(generics.RetrieveAPIView):
+    serializer_class = CheckoutWithItemsSerializer
+    permission_classes = [IsAuthenticated]
 
+    def get_queryset(self):
+        return Checkout.objects.filter(user=self.request.user)
 
 # Create your views here.
 class CreateUserView(generics.CreateAPIView):

@@ -17,5 +17,6 @@ urlpatterns = [
     path("checkout/processing", views.CheckoutLastView.as_view(), name="processcheckout"),
     path("checkout/specific/<int:pk>", views.CheckoutView.as_view(), name="specificcheckout"),
     path('checkout/all', views.CheckoutsListView.as_view(), name='allcheckouts'),    
-    path("checkout/item/", views.CheckoutItemCreate.as_view(), name="checkoutitemcreate")
+    path("checkout/item/", views.CheckoutItemCreate.as_view(), name="checkoutitemcreate"),
+    path('checkout/details/<int:pk>', views.CheckoutDetailView.as_view(), name='checkout-detail'),
 ] +static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

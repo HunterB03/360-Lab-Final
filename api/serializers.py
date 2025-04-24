@@ -28,6 +28,17 @@ class CheckoutItemSerializer(serializers.ModelSerializer):
         model = CheckoutItems
         fields = ["item", "quantity", "price"]
 
+class CheckoutWithItemsSerializer(serializers.ModelSerializer):
+    items = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Checkout
+        fields = ["id", "shipping_address", "amount_paid", "date_ordered", "items"]
+
+    def get_items(self, obj):
+        items = CheckoutItems.objects.filter(checkout=obj)
+        return CheckoutItemSerializer(items, many=True).data
+
 class CheckoutViewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Checkout

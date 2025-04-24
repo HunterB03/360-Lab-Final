@@ -11,7 +11,7 @@ import CheckoutPage from './pages/CheckoutPage'
 import DjangoCart from "./pages/DjangoCart"
 import AdminDashboard from './pages/AdminPage'
 import Profile from './pages/Profile'
-
+import CheckoutDetails from './pages/CheckoutDetails';
 
 
 function Logout(){
@@ -45,6 +45,7 @@ function App() {
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/djangocart" element={<DjangoCart />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/checkout/:id" element={<CheckoutDetails />} />
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </BrowserRouter>
