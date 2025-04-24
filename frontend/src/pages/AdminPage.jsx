@@ -27,9 +27,22 @@ const AdminDashboard = () => {
     
       return (
         <div>
+
+<div className="header">
+                
+                <ul>
+                <li><a href="/">Home</a></li>
+                {userInfo?.is_superuser && <li><a href="/admin-dashboard">Admin Dashboard</a></li>}
+                {userInfo?.is_superuser && <li><a href="http://127.0.0.1:8000/admin/" target="_blank" rel="noopener noreferrer">Django Admin</a></li>}
+                <li><a href="/logout">Log Out</a></li>
+                </ul>
+    
+                </div>
+
+
           <h1>Admin Dashboard</h1>
           <p>Welcome, {userInfo.username}! You are a superuser.</p>
-          {/* Add admin features here later */}
+
         </div>
       );
     };

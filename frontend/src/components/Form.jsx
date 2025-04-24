@@ -23,7 +23,10 @@ function Form({route, method}) {
                 localStorage.setItem(REFRESH_TOKEN, res.data.refresh)
                 navigate("/")
             }else{
-                navigate("/login")
+                const loginRes = await api.post("/api/token/", { username, password })
+                localStorage.setItem(ACCESS_TOKEN, loginRes.data.access)
+                localStorage.setItem(REFRESH_TOKEN, loginRes.data.refresh)
+                navigate("/") 
             }
         }catch (error) {
             alert(error)
