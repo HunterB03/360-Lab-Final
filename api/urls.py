@@ -13,4 +13,7 @@ urlpatterns = [
     path("<int:lid>/cart/delete", views.CartDelete.as_view(), name="cartdelete"),
     path("<int:amt>/cart/update", views.CartUpdate.as_view(), name="cartupdate"),
     path('user-info/', current_user_info)
+    path("<int:item>/cart/increase", views.CartIncrease.as_view(), name="cartincrease"),
+    path('user-info/', current_user_info),
+	path("listings/specific", views.CartItemDetailsView.as_view(), name="specificlisting"),
 ] +static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -31,3 +31,8 @@ class CartItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = CartItems
         fields = ["cart", "item", "quantity", "price"]
+
+class CartIncDecSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CartItems
+        fields = ["item","quantity"]

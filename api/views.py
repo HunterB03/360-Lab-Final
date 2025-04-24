@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from rest_framework import generics
-from .serializers import UserSerializer, ListingSerializer, CheckoutSerializer, CartCreateSerializer, CartItemSerializer
+from .serializers import UserSerializer, ListingSerializer, CheckoutSerializer, CartCreateSerializer, CartItemSerializer, CartIncDecSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Listing, Cart, CartItems
 from django.db.models.signals import post_save
@@ -65,8 +65,31 @@ class CartItemView(generics.ListAPIView):
 		curr = self.request.user
 		currcart = Cart.objects.get(user=curr)
 		return CartItems.objects.filter(cart=currcart)
+	
+class CartItemDetailsView(generics.ListAPIView):
+	serializer_class = ListingSerializer
+	permission_classes = [IsAuthenticated]
 
-class CartAdd(generics.CreateAPIView):
+	def get_queryset(self):
+		curr = self.request.user
+		currcart = Cart.objects.get(user=curr)
+		curritem = CartItems.objects.filter(cart=currcart)
+		curritemid = curritem.values_list('item', flat=True)
+		return Listing.objects.filter(id__in=curritemid)
+#		pk = self.kwargs.get('pk')
+#		return Listing.objects.filter(id=pk)
+	
+class CartIncrease(generics.UpdateAPIView):
+	serializer_class = CartItemSerializer
+	permission_classes = [IsAuthenticated]
+	lookup_field = 'item'
+	def get_queryset(self):
+		curr = self.request.user
+		currcart = Cart.objects.get(user=curr)
+		return CartItems.objects.filter(cart=currcart)
+
+class CartAdd(generics.ListAPIView):
+	queryset = CartItems.objects.all()
 	serializer_class = CartItemSerializer
 	permission_classes = [IsAuthenticated]
 
@@ -75,10 +98,6 @@ class CartDelete(generics.ListAPIView):
 	serializer_class = CartItemSerializer
 	permission_classes = [IsAuthenticated]
 
-class CartUpdate(generics.ListAPIView):
-	queryset = CartItems.objects.all()
-	serializer_class = CartItemSerializer
-	permission_classes = [IsAuthenticated]
 
 """
 def CartAdd(request, lid):
