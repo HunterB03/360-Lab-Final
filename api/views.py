@@ -19,9 +19,13 @@ def current_user_info(request):
     return Response({
 		'id': user.id,
         'username': user.username,
+		'firstname': user.first_name,
+		'lastname' : user.last_name,
+		'email' : user.email,
         'groups': groups,
 		'is_superuser': user.is_superuser,
     })
+
 
 
 # Create your views here.
