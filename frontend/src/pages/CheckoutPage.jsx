@@ -46,8 +46,9 @@ function CheckoutPage() {
         }
         posty()
         api.get('/api/checkout/processing').then((res) => res.data).then((data) => {setLatestCh(data); console.log(data)}).catch((err) => alert(err))
+        const cheid = latestch[0].id
         cartitems.map((item) => {
-
+            
         })
     }
 

@@ -68,7 +68,7 @@ class CheckoutLastView(generics.ListAPIView):
 
 	def get_queryset(self):
 		user = self.request.user
-		return Checkout.objects.filter(user=user)#.order_by('-date_ordered').first()
+		return Checkout.objects.filter(user=user).order_by('-date_ordered')[:1]
 
 class CartView(generics.ListAPIView):
 	serializer_class = CartCreateSerializer

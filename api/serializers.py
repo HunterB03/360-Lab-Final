@@ -26,7 +26,7 @@ class CheckoutSerializer(serializers.ModelSerializer):
 class CheckoutViewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Checkout
-        fields = ["user", "shipping_address", "card_number", "amount_paid"]
+        fields = ["id", "user", "shipping_address", "card_number", "amount_paid"]
 
 
 class CartCreateSerializer(serializers.ModelSerializer):
