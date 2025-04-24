@@ -7,6 +7,9 @@ import "../styles/Form.css"
 function Form({route, method}) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
+    const [email, setEmail] = useState("")
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
@@ -16,27 +19,65 @@ function Form({route, method}) {
         setLoading(true)
         e.preventDefault()
 
-        try{
-            const res = await api.post(route, { username, password })
-            if(method === "login"){
-                localStorage.setItem(ACCESS_TOKEN, res.data.access)
-                localStorage.setItem(REFRESH_TOKEN, res.data.refresh)
-                navigate("/")
-            }else{
-                const loginRes = await api.post("/api/token/", { username, password })
-                localStorage.setItem(ACCESS_TOKEN, loginRes.data.access)
-                localStorage.setItem(REFRESH_TOKEN, loginRes.data.refresh)
-                navigate("/") 
-            }
-        }catch (error) {
-            alert(error)
-        } finally{
-            setLoading(false)
+        const data = method === "register"
+        ? { username, password, first_name: firstName, last_name: lastName, email }
+        : { username, password }
+
+    try {
+        const res = await api.post(route, data)
+
+        if (method === "login") {
+            localStorage.setItem(ACCESS_TOKEN, res.data.access)
+            localStorage.setItem(REFRESH_TOKEN, res.data.refresh)
+            navigate("/")
+        } else {
+            // For registration, login automatically after successful registration
+            const loginRes = await api.post("/api/token/", { username, password })
+            localStorage.setItem(ACCESS_TOKEN, loginRes.data.access)
+            localStorage.setItem(REFRESH_TOKEN, loginRes.data.refresh)
+            navigate("/")
         }
+    } catch (error) {
+        alert(error)
+    } finally {
+        setLoading(false)
     }
-    
-    return <form onSubmit={handleSubmit} className="form-container">
+}
+
+return (
+    <form onSubmit={handleSubmit} className="form-container">
         <h1>{name}</h1>
+
+        {/* Register info */}
+        {method === "register" && (
+            <>
+                <input
+                    className="form-input"
+                    type="text"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    placeholder="First Name"
+                />
+
+                <input
+                    className="form-input"
+                    type="text"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    placeholder="Last Name"
+                />
+
+                <input
+                    className="form-input"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Email"
+                />
+            </>
+        )}
+
+        {/* Username and password*/}
         <input
             className="form-input"
             type="text"
@@ -44,7 +85,6 @@ function Form({route, method}) {
             onChange={(e) => setUsername(e.target.value)}
             placeholder="Username"
         />
-
         <input
             className="form-input"
             type="password"
@@ -57,7 +97,7 @@ function Form({route, method}) {
         </button>
 
     </form>
-
+)
 }
 
 export default Form
