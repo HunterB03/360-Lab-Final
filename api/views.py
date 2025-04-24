@@ -46,9 +46,12 @@ class ListingDelete(generics.CreateAPIView):
 		user = self.request.user
 		return Listing.objects.filter(owns=user)
 	
-class CheckoutCreate(generics.ListCreateAPIView):
+class CheckoutCreate(generics.CreateAPIView):
 	serializer_class = CheckoutSerializer
 	permission_classes = [IsAuthenticated]
+	
+	def perform_create(self, serializer):
+		serializer.save(user=self.request.user, users_name=self.request.user.username)
 
 class CartView(generics.ListAPIView):
 	serializer_class = CartCreateSerializer
@@ -88,16 +91,19 @@ class CartIncrease(generics.UpdateAPIView):
 		currcart = Cart.objects.get(user=curr)
 		return CartItems.objects.filter(cart=currcart)
 
-class CartAdd(generics.ListAPIView):
+class CartAdd(generics.CreateAPIView):
 	queryset = CartItems.objects.all()
 	serializer_class = CartItemSerializer
 	permission_classes = [IsAuthenticated]
 
-class CartDelete(generics.ListAPIView):
-	queryset = CartItems.objects.all()
+class CartDelete(generics.DestroyAPIView):
 	serializer_class = CartItemSerializer
 	permission_classes = [IsAuthenticated]
-
+	lookup_field = 'item'
+	def get_queryset(self):
+		curr = self.request.user
+		currcart = Cart.objects.get(user=curr)
+		return CartItems.objects.filter(cart=currcart)
 
 """
 def CartAdd(request, lid):

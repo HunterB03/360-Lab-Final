@@ -18,7 +18,6 @@ class Listing(models.Model):
 class Checkout(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	users_name = models.CharField(max_length=100)
-	email = models.EmailField(max_length=100)
 	shipping_address = models.TextField(max_length=300)
 	card_number = models.CharField(max_length=50)
 	amount_paid = models.DecimalField(max_digits=20, decimal_places=2)

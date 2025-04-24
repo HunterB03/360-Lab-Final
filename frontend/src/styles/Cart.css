@@ -7,6 +7,7 @@
 
 .cart-item-container {
     display: flex;
+    justify-content: space-between;
     border: 1px solid lightgray;
     border-radius: 8px;
     padding: 10px;
@@ -64,4 +65,8 @@
 
 .cart-summary{
     background-color: white;
+}
+
+.cart-quantity-input{
+    
 }

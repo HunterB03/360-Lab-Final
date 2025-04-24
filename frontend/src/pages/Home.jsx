@@ -14,12 +14,13 @@ function Home() {
     const[img, setImage] = useState("")
 	const[price, setPrice] = useState("")
 
-    const [cart, setCart] = useState([]);
     const [searchTerm, setSearchTerm] = useState("")
     const [userGroups, setUserGroups] = useState([]);
     const [loadingUserInfo, setLoadingUserInfo] = useState(true);
     const [userInfo, setUserInfo] = useState(null);
 
+    const [cart, setCart] = useState([])
+    const [cartitems, setCartItems] = useState([])
 
     useEffect(() => {
         getListings()
@@ -42,7 +43,7 @@ function Home() {
         }
     };
 
-    const addToCart = (listing) => {
+   /* const addToCart = (listing) => {
         const existingItemIndex = cart.findIndex(item => item.id === listing.id);
     
         let updatedCart = [...cart];
@@ -55,7 +56,50 @@ function Home() {
         setCart(updatedCart);
         localStorage.setItem('cart', JSON.stringify(updatedCart));
     };
+    */
+    useEffect(() => {
+        api.get("/api/cart/").then((res) => res.data).then((data) => {setCart(data); console.log(data)}).catch((err) => alert(err))
+        api.get("/api/cart/items/").then((res) => res.data).then((data) => {setCartItems(data); console.log(data)}).catch((err) => alert(err))
+    }, []);
+
+    const addToCart = async (listing) => {
+    const existingItemIndex = cartitems.findIndex(i => i.item === listing.id);
+    let newCart = [...cartitems]
+    if(existingItemIndex !== -1) {
+        //newCart[existingItemIndex].quantity += 1;
+        const theitem = cartitems.findIndex(i => i.item===listing.id)
+        const thequant = cartitems[existingItemIndex].quantity
+
+			api.patch(`/api/${listing.id}/cart/increase`, {'quantity':cartitems[existingItemIndex].quantity+1})
+			const updatequant = cartitems.map((x, i) => {
+				if(i===theitem) {
+					return {
+						...x,
+						quantity: cartitems[existingItemIndex].quantity+1
+					} //replaces quantity with new amount to re render page
+				}
+				else {
+					return x
+				}
+			});
+			setCartItems(updatequant)
+		
+    } else {
+        //newCart.push({ ...listing, quantity:1 });
+        const newitem = {
+            cart: cart[0].id,
+            item: listing.id,
+            quantity: 1,
+            price: listing.price
+        }
+        newCart.push(newitem)
+        api.post('/api/cart/add', newitem)
+        setCartItems(newCart);
+    }
     
+
+   }
+
     const filteredListings = listings.filter(listing =>
         listing.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         listing.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -68,7 +112,7 @@ function Home() {
                 
             <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="/cart">Go To Cart</a></li>
+            <li><a href="/djangocart">Go To Cart</a></li>
             {userInfo?.is_superuser && <li><a href="/admin-dashboard">Admin Dashboard</a></li>}
             {userGroups.includes('Seller') && <li><a href="/create-listing">Create Listing</a></li>}
             <li><a href="/logout">Log Out</a></li>

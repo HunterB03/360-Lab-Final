@@ -21,11 +21,12 @@ class ListingSerializer(serializers.ModelSerializer):
 class CheckoutSerializer(serializers.ModelSerializer):
     class Meta:
         model = Checkout
+        fields = ["user", "shipping_address", "card_number", "amount_paid"]
 
 class CartCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
-        fields = ["user"]
+        fields = ["id","user"]
 
 class CartItemSerializer(serializers.ModelSerializer):
     class Meta:

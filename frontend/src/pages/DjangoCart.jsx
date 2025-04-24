@@ -34,36 +34,31 @@ function DjCartPage() {
 	}, []);
 
 	const removeFromCart = (id) => {
-        //const updatedCart = cart.filter(item => item.id !== id);
-        //setCart(updatedCart);
-        //localStorage.setItem('cart', JSON.stringify(updatedCart));
-		'do some stuff'
-    };
+		api.delete(`api/${id}/cart/delete`)
+		setCartItems(cartitems.filter(i => i.item !== id))
+		setItemDetails(itemdetails.filter(i => i.id !== id))
+	};
 
-    const increaseQuantity = (id, amt) => {
-        const theitem = cartitems.find(i => i.item === id)
+    const setQuantity = (id, amt) => {
+        const theitem = cartitems.findIndex(i => i.item===id)
+		if(amt > 0) {
+			api.patch(`api/${id}/cart/increase`, {'quantity':amt})
+			const updatequant = cartitems.map((x, i) => {
+				if(i===theitem) {
+					return {
+						...x,
+						quantity: amt
+					} //replaces quantity with new amount to re render page
+				}
+				else {
 
-//		api.patch('api/${id}/cart/increase',{'quantity':});
+					return x
+				}
+			});
+			setCartItems(updatequant)
+		}
 		return
 	}
-//            if (item.id === id && item.quantity > 1) {
-//                item.quantity -= 1;
-//            }
-//            return item;
-//        }).filter(item => item.quantity > 0);
-//        setCart(updatedCart);
-//        localStorage.setItem('cart', JSON.stringify(updatedCart));
-
-    const setQuantity = (id) => {
-        const updatedCart = cart.map(i => {
-            if (i.item === id) {
-                ''
-            }
-            return item;
-        });
-        setCart(updatedCart);
-        localStorage.setItem('cart', JSON.stringify(updatedCart));
-    };
 
     const totalQuantity = cartitems.reduce((acc, item) => acc + item.quantity, 0);
     const totalPrice = cartitems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
@@ -85,19 +80,20 @@ function DjCartPage() {
                 ) : (
                     itemdetails.map((details) => {
 					const quan = cartitems.find(i => i.item === details.id);
-					console.log(quan)
 					return (
                         <div key={details.id} className="cart-item-container">
                             <img className="cart-item-image" src={details.img} alt={details.title} />
                             <div className="cart-item-details">
                                 <p className="cart-item-title">{details.title}</p>
-                                <p className="cart-item-price">{details.price}</p>
+                                <p className="cart-item-price">${details.price}</p>
                                 <p className="cart-item-content">{details.content}</p>
                                 <p className="cart-item-quantity">Quantity: {quan.quantity}</p>
+								<input className="cart-quantity-input" type="text" value={quan.quantity} onKeyDown={(e) => {if(e.key==='.') {e.preventDefault();}}} onChange={(e) => setQuantity(details.id, e.target.value)} />
                                 <div className="cart-item-actions">
-								<button onClick={() => increaseQuantity(details.id, 1)}>+</button>
-                                <button onClick={() => increaseQuantity(details.id, -1)}>-</button>
+								<button onClick={() => setQuantity(details.id, (quan.quantity+1))}>+</button>
+                                <button onClick={() => setQuantity(details.id, (quan.quantity-1))}>-</button>
                                 <button onClick={() => removeFromCart(details.id)}>Remove</button>
+
 								</div>
                             </div>
                         </div>
@@ -107,7 +103,7 @@ function DjCartPage() {
 				{itemdetails.length > 0 && (
 					<div className="cart-summary">
 						<p><strong>Total Quantity:</strong> {totalQuantity}</p>
-						<p><strong>Total Price:</strong> ${totalPrice}</p>
+						<p><strong>Price:</strong> ${totalPrice}</p>
 						<Link to="/checkout"><button>Checkout</button></Link>
 					</div>
 				)}
