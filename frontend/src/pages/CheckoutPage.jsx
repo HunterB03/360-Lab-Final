@@ -3,6 +3,7 @@ import api from "../api"
 import "../styles/Checkout.css";
 import "../styles/Form.css"
 import { Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 
 function CheckoutPage() {
     const [cart, setCart] = useState([]);
@@ -23,9 +24,9 @@ function CheckoutPage() {
     const totalQuantity = cartitems.reduce((acc, cartitems) => acc + cartitems.quantity, 0);
     const totalPrice = cartitems.reduce((acc, cartitems) => acc + cartitems.price * cartitems.quantity, 0);
     
-
-    function handleSubmit() {
-
+    const navigate = useNavigate();
+    const handleSubmit = () => {
+        
         //make a checkout, and then do checkout items
         //then redirect user
         //checkout id is confnum?
@@ -51,7 +52,6 @@ function CheckoutPage() {
                 console.log(data)}).catch((err) => alert(err))
         }
 */
-        //latestch[0].id has id of current checkout process
         
         cartitems.map((i) => {
             console.log(i)
@@ -65,9 +65,15 @@ function CheckoutPage() {
             console.error(error.response.data)
         }
         })
+        cartitems.map((i) => {
+            api.delete(`/api/${i.item}/cart/delete`)
+        })
+        
+        navigate('/profile');
     }
 
     return (
+
         <div>
             <div className="header">
                 <ul>
@@ -129,6 +135,7 @@ function CheckoutPage() {
                         </>
                 </div>
                 </div>
+
 )}     
                         
 
