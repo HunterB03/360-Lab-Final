@@ -9,6 +9,7 @@ import ProtectedRoute from "./components/ProtectedRoute"
 import CreateListingPage from './pages/CreateListingPage';
 import CheckoutPage from './pages/CheckoutPage'
 import DjangoCart from "./pages/DjangoCart"
+import AdminDashboard from './pages/AdminPage'
 
 
 function Logout(){
@@ -39,6 +40,7 @@ function App() {
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<CheckoutPage /> }/>
         <Route path="/create-listing" element={<CreateListingPage />} />
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/djangocart" element={<DjangoCart />} />
         <Route path="*" element={<NotFound />}></Route>
       </Routes>

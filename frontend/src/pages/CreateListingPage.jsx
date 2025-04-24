@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../api';
+import "../styles/CreateListing.css";
 
 const CreateListingPage = () => {
   const [userGroups, setUserGroups] = useState([]);
@@ -52,14 +53,31 @@ const CreateListingPage = () => {
 
   return (
     <div>
+        <div className="header">
+            <ul>
+            <li><a href="/">Home</a></li>
+            {userGroups.includes('Seller') && <li><a href="/create-listing">Create Listing</a></li>}
+            <li><a href="/logout">Log Out</a></li>
+            </ul>
+          </div>
+      <div className="form-container">
       <h1>Create a New Listing</h1>
       <form onSubmit={handleSubmit}>
+        <div>
         <input type="text" value={title} onChange={e => setTitle(e.target.value)} placeholder="Title" required />
-        <textarea value={content} onChange={e => setContent(e.target.value)} placeholder="Description" required />
+        </div><br />
+        <div>
+        <input type="text" value={content} onChange={e => setContent(e.target.value)} placeholder="Description" required />
+        </div><br />
+        <div>
         <input type="number" value={price} onChange={e => setPrice(e.target.value)} placeholder="Price" required />
+        </div><br />
+        <div>
         <input type="file" onChange={e => setImg(e.target.files[0])} />
+        </div><br />
         <button type="submit">Post Listing</button>
       </form>
+      </div>
     </div>
   );
 };

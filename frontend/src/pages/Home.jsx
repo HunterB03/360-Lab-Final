@@ -18,6 +18,7 @@ function Home() {
     const [searchTerm, setSearchTerm] = useState("")
     const [userGroups, setUserGroups] = useState([]);
     const [loadingUserInfo, setLoadingUserInfo] = useState(true);
+    const [userInfo, setUserInfo] = useState(null);
 
 
     useEffect(() => {
@@ -32,6 +33,7 @@ function Home() {
     const getUserInfo = async () => {
         try {
             const res = await api.get('/api/user-info/');
+            setUserInfo(res.data)
             setUserGroups(res.data.groups);
         } catch (err) {
             console.error("Failed to load user info:", err);
@@ -67,6 +69,7 @@ function Home() {
             <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/cart">Go To Cart</a></li>
+            {userInfo?.is_superuser && <li><a href="/admin-dashboard">Admin Dashboard</a></li>}
             {userGroups.includes('Seller') && <li><a href="/create-listing">Create Listing</a></li>}
             <li><a href="/logout">Log Out</a></li>
             </ul>

@@ -20,6 +20,7 @@ def current_user_info(request):
 		'id': user.id,
         'username': user.username,
         'groups': groups,
+		'is_superuser': user.is_superuser,
     })
 
 
