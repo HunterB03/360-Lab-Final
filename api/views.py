@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from rest_framework import generics
-from .serializers import UserSerializer, ListingSerializer, CheckoutSerializer, CartCreateSerializer, CartItemSerializer, CartIncDecSerializer
+from .serializers import UserSerializer, ListingSerializer, CheckoutSerializer, CartCreateSerializer, CartItemSerializer, CartIncDecSerializer, CheckoutViewSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .models import Listing, Cart, CartItems
+from .models import Listing, Cart, CartItems, Checkout, CheckoutItems
 from django.db.models.signals import post_save
 
 from django.contrib.auth.models import Group
@@ -47,11 +47,28 @@ class ListingDelete(generics.CreateAPIView):
 		return Listing.objects.filter(owns=user)
 	
 class CheckoutCreate(generics.CreateAPIView):
+	queryset = Checkout.objects.all()
 	serializer_class = CheckoutSerializer
 	permission_classes = [IsAuthenticated]
 	
 	def perform_create(self, serializer):
-		serializer.save(user=self.request.user, users_name=self.request.user.username)
+		serializer.save(user=self.request.user)
+
+class CheckoutView(generics.ListAPIView):
+	serializer_class = CheckoutViewSerializer
+	permission_classes = [IsAuthenticated]
+
+	def get_queryset(self):
+		user = self.request.user
+		return Checkout.objects.filter(user=user)
+	
+class CheckoutLastView(generics.ListAPIView):
+	serializer_class = CheckoutViewSerializer
+	permission_classes = [IsAuthenticated]
+
+	def get_queryset(self):
+		user = self.request.user
+		return Checkout.objects.filter(user=user)#.order_by('-date_ordered').first()
 
 class CartView(generics.ListAPIView):
 	serializer_class = CartCreateSerializer

@@ -14,4 +14,6 @@ urlpatterns = [
     path('user-info/', current_user_info),
     path("<int:item>/cart/increase", views.CartIncrease.as_view(), name="cartincrease"),
 	path("listings/specific", views.CartItemDetailsView.as_view(), name="specificlisting"),
+    path("checkout/processing", views.CheckoutLastView.as_view(), name="processcheckout"),
+    path("checkout/specific/<int:pk>", views.CheckoutView.as_view(), name="specificcheckout")
 ] +static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -10,7 +10,8 @@ function CheckoutPage() {
     const [address, setAddress] = useState("");
     const [cardnumber, setCardnumber] = useState("");
     const [itemdetails, setItemDetails] = useState([]);
-    const [amtpaid, setAmtPaid] = useState([])
+    const [amtpaid, setAmtPaid] = useState();
+    const [latestch, setLatestCh] = useState([]);
 
     useEffect(() => {
         api.get("/api/cart/").then((res) => res.data).then((data) => {setCart(data); console.log(data)}).catch((err) => alert(err))
@@ -21,7 +22,7 @@ function CheckoutPage() {
 
     const totalQuantity = cartitems.reduce((acc, cartitems) => acc + cartitems.quantity, 0);
     const totalPrice = cartitems.reduce((acc, cartitems) => acc + cartitems.price * cartitems.quantity, 0);
-
+    
 
     function handleSubmit() {
 
@@ -29,17 +30,25 @@ function CheckoutPage() {
         //then redirect user
         //checkout id is confnum?
         setAmtPaid((totalPrice*1.06))
-        const data = {
-            'shipping_address': address,
-            'card_number': cardnumber,
-            'amount_paid': totalPrice*1.06
-        }
-        console.log(data)
+
         async function posty() {
-         //   await api.post('/api/checkout/', data)
+        try {
+            await api.post('/api/checkout/', 
+                {
+                    "shipping_address": address,
+                    "card_number": cardnumber,
+                    "amount_paid": parseFloat((totalPrice*1.06).toFixed(2))
+                }
+            )
+        } catch (error) {
+            console.error(error.response.data)
         }
-        console.log(totalPrice)
+        }
         posty()
+        api.get('/api/checkout/processing').then((res) => res.data).then((data) => {setLatestCh(data); console.log(data)}).catch((err) => alert(err))
+        cartitems.map((item) => {
+
+        })
     }
 
     return (
@@ -54,7 +63,7 @@ function CheckoutPage() {
 
             <h2>Checkout</h2>
             <div className="checkout-container">
-            
+            <h3>Order Summary</h3>
             
                 {cartitems.length === 0 ? (
                     <p>Your cart is empty. Please add items to the cart before checking out.</p>
@@ -64,10 +73,9 @@ function CheckoutPage() {
 					const quan = cartitems.find(i => i.item === details.id);
                     
 					return (
-                        <div className="cart-summary">
-                        <h3>Order Summary</h3>
+                        <div key = {details.id} className="cart-summary">
 
-                        <div key={details.id} className="cart-item-container">
+                        <div className="cart-item-container">
                                 <p>{details.title} ---
                                 ${details.price} ---
                                Quantity: {quan.quantity}</p>
@@ -98,9 +106,10 @@ function CheckoutPage() {
                               placeholder="Card Number"
                           />
 
-                          <button onClick={handleSubmit} className="form-button">Place Order</button>
+                          
                   
                         </form>
+                        <button onClick={handleSubmit} className="form-button">Place Order</button>
                         </>
                 </div>
                 </div>
