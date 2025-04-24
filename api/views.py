@@ -27,6 +27,15 @@ def current_user_info(request):
     })
 
 
+class CheckoutsListView(generics.ListAPIView):
+    serializer_class = CheckoutViewSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Checkout.objects.filter(user=user)
+
+
 
 # Create your views here.
 class CreateUserView(generics.CreateAPIView):

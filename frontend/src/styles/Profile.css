@@ -1,0 +1,40 @@
+  
+  .profile-section,
+  .checkouts-section {
+    background-color: white; /* White background for both sections */
+    padding: 20px;
+    border-radius: 8px; /* Optional: For rounded corners */
+    margin-bottom: 20px; /* Space between sections */
+    box-shadow: 0 2px 4px black(0, 0, 0, 0.1); /* Optional: Light shadow for depth */
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  
+  p {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .checkout-item {
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: white; /* Light background for each checkout item */
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  
+  .checkout-item p {
+    margin-bottom: 8px; /* Slight spacing between each detail in the checkout */
+  }
+  
+  .checkout-item strong {
+    font-weight: bold;
+  }

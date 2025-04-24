@@ -41,7 +41,9 @@ const AdminDashboard = () => {
 
 
           <h1>Admin Dashboard</h1>
-          <p>Welcome, {userInfo.username}! You are a superuser.</p>
+          <p>Welcome, {userInfo.username}! You are an admin.</p>
+          
+          <button><a href="http://127.0.0.1:8000/admin/" target="_blank" rel="noopener noreferrer"style={{color: 'white', textDecoration: 'none'}} >Django Admin</a></button>
 
         </div>
       );
